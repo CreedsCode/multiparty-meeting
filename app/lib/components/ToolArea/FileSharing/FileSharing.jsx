@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import { withRoomContext } from '../../../RoomContext';
 import FileList from './FileList';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 class FileSharing extends Component
 {
@@ -52,15 +53,14 @@ class FileSharing extends Component
 						multiple
 					/>
 
-					<div
-						type='button'
+					<Button
+						variant='contained'
+						color='default'
 						onClick={this.handleClick}
-						className={classNames('share-file', {
-							disabled : !torrentSupport
-						})}
 					>
+						<CloudUploadIcon className='leftButtonIcon' />
 						<span>{buttonDescription}</span>
-					</div>
+					</Button>
 				</div>
 
 				<FileList />

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRoomContext } from '../../../RoomContext';
 import magnet from 'magnet-uri';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 const DEFAULT_PICTURE = 'resources/images/avatar-empty.jpeg';
 
@@ -34,15 +37,17 @@ class File extends Component
 						<div className='file-info'>
 							<Choose>
 								<When condition={torrentSupport}>
-									<span
-										className='button'
+									<Button
+										variant='contained'
+										color='default'
 										onClick={() =>
 										{
 											roomClient.handleDownload(file.magnetUri);
 										}}
 									>
-										<img src='resources/images/download-icon.svg' />
-									</span>
+										<CloudDownloadIcon className='leftButtonIcon' />
+										Download
+									</Button>
 								</When>
 								<Otherwise>
 									<p>
@@ -73,16 +78,17 @@ class File extends Component
 
 							{file.files.map((sharedFile, i) => (
 								<div className='file-info' key={i}>
-									<span
-										className='button'
+									<Button
+										variant='contained'
+										color='default'
 										onClick={() =>
 										{
 											roomClient.saveFile(sharedFile);
 										}}
 									>
-										<img src='resources/images/save-icon.svg' />
-									</span>
-
+										<SaveIcon className='leftButtonIcon' />
+										Save
+									</Button>
 									<p>{sharedFile.name}</p>
 								</div>
 							))}

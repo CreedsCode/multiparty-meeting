@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRoomContext } from '../../../RoomContext';
 import MessageList from './MessageList';
+import Button from '@material-ui/core/Button';
+import SendIcon from '@material-ui/icons/Send';
 
 class Chat extends Component
 {
@@ -55,11 +57,14 @@ class Chat extends Component
 						autoFocus={autofocus}
 						autoComplete='off'
 					/>
-					<input
+					<Button
+						variant='contained'
+						color='default'
 						type='submit'
-						className='send'
-						value='Send'
-					/>
+					>
+						Send
+						<SendIcon className='rightButtonIcon'/>
+					</Button>
 				</form>
 			</div>
 		);
