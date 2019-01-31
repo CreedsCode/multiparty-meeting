@@ -7,6 +7,10 @@ import { withRoomContext } from '../../RoomContext';
 import * as stateActions from '../../redux/stateActions';
 import PeerView from '../VideoContainers/PeerView';
 import ScreenView from '../VideoContainers/ScreenView';
+import MicIcon from '@material-ui/icons/Mic';
+import MicOffIcon from '@material-ui/icons/MicOff';
+import NewWindowIcon from '@material-ui/icons/OpenInNew';
+import FullScreenIcon from '@material-ui/icons/Fullscreen';
 
 class Peer extends Component
 {
@@ -112,7 +116,7 @@ class Peer extends Component
 						})}
 					>
 						<div
-							className={classnames('button', 'mic', {
+							className={classnames('button', {
 								on       : micEnabled,
 								off      : !micEnabled,
 								disabled : peer.peerAudioInProgress
@@ -124,10 +128,19 @@ class Peer extends Component
 									roomClient.modifyPeerConsumer(peer.name, 'mic', true) :
 									roomClient.modifyPeerConsumer(peer.name, 'mic', false);
 							}}
-						/>
+						>
+							<Choose>
+								<When condition={micEnabled}>
+									<MicIcon />
+								</When>
+								<Otherwise>
+									<MicOffIcon />
+								</Otherwise>
+							</Choose>
+						</div>
 
 						<div
-							className={classnames('button', 'newwindow', {
+							className={classnames('button', {
 								disabled : !videoVisible ||
 									(windowConsumer === webcamConsumer.id)
 							})}
@@ -136,10 +149,12 @@ class Peer extends Component
 								e.stopPropagation();
 								toggleConsumerWindow(webcamConsumer);
 							}}
-						/>
+						>
+							<NewWindowIcon />
+						</div>
 
 						<div
-							className={classnames('button', 'fullscreen', {
+							className={classnames('button', {
 								disabled : !videoVisible
 							})}
 							onClick={(e) =>
@@ -147,7 +162,9 @@ class Peer extends Component
 								e.stopPropagation();
 								toggleConsumerFullscreen(webcamConsumer);
 							}}
-						/>
+						>
+							<FullScreenIcon />
+						</div>
 					</div>
 
 					<PeerView
@@ -170,7 +187,7 @@ class Peer extends Component
 							})}
 						>
 							<div
-								className={classnames('button', 'newwindow', {
+								className={classnames('button', {
 									disabled : !screenVisible ||
 										(windowConsumer === screenConsumer.id)
 								})}
@@ -179,10 +196,12 @@ class Peer extends Component
 									e.stopPropagation();
 									toggleConsumerWindow(screenConsumer);
 								}}
-							/>
+							>
+								<NewWindowIcon />
+							</div>
 
 							<div
-								className={classnames('button', 'fullscreen', {
+								className={classnames('button', {
 									disabled : !screenVisible
 								})}
 								onClick={(e) =>
@@ -190,7 +209,9 @@ class Peer extends Component
 									e.stopPropagation();
 									toggleConsumerFullscreen(screenConsumer);
 								}}
-							/>
+							>
+								<FullScreenIcon />
+							</div>
 						</div>
 						<ScreenView
 							advancedMode={advancedMode}

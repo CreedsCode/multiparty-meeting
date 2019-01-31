@@ -8,6 +8,10 @@ import * as appPropTypes from '../appPropTypes';
 import { withRoomContext } from '../../RoomContext';
 import PeerView from '../VideoContainers/PeerView';
 import ScreenView from '../VideoContainers/ScreenView';
+import VideoIcon from '@material-ui/icons/Videocam';
+import VideoOffIcon from '@material-ui/icons/VideocamOff';
+import MicIcon from '@material-ui/icons/Mic';
+import MicOffIcon from '@material-ui/icons/MicOff';
 
 class Me extends React.Component
 {
@@ -110,7 +114,7 @@ class Me extends React.Component
 								data-type='dark'
 								data-place='bottom'
 								data-for='me'
-								className={classnames('button', 'mic', micState, {
+								className={classnames('button', micState, {
 									disabled : me.audioInProgress,
 									visible  : micState == 'off' || this.state.controlsVisible
 								})}
@@ -120,13 +124,22 @@ class Me extends React.Component
 										roomClient.muteMic() :
 										roomClient.unmuteMic();
 								}}
-							/>
+							>
+								<Choose>
+									<When condition={micState == 'on'}>
+										<MicIcon />
+									</When>
+									<Otherwise>
+										<MicOffIcon />
+									</Otherwise>
+								</Choose>
+							</div>
 							<ReactTooltip
 								id='me'
 								effect='solid'
 							/>
 							<div
-								className={classnames('button', 'webcam', webcamState, {
+								className={classnames('button', webcamState, {
 									disabled : me.webcamInProgress,
 									visible  : webcamState == 'off' || this.state.controlsVisible
 								})}
@@ -136,7 +149,16 @@ class Me extends React.Component
 										roomClient.disableWebcam() :
 										roomClient.enableWebcam();
 								}}
-							/>
+							>
+								<Choose>
+									<When condition={webcamState == 'on'}>
+										<VideoIcon />
+									</When>
+									<Otherwise>
+										<VideoOffIcon />
+									</Otherwise>
+								</Choose>
+							</div>
 						</div>
 					</If>
 
